@@ -10,6 +10,7 @@
 </head>
 <body>
 	<h1>Hello World!!</h1>
+	<h1>승섭!!</h1>
 	<h3>${name}</h3>
 	<h3>${backNumber}</h3>
 	<!-- c:if는 jsp 문법(jstl 문법)
