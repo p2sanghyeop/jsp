@@ -9,7 +9,7 @@
 <title>JSP Study!</title>
 </head>
 <body>
-	<h1>Hello World</h1>
+	<h1>Hello World!!</h1>
 	<h3>${name}</h3>
 	<h3>${backNumber}</h3>
 	<!-- c:if는 jsp 문법(jstl 문법)
