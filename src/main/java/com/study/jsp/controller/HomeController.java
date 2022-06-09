@@ -5,9 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.jsp.vo.ActorVO;
 
@@ -52,7 +57,7 @@ public class HomeController {
 	
 	
 	@GetMapping("/board")
-	public String loadBoardPage(ModelMap map) {
+	public String loadBoardPage(ModelMap map, HttpSession httpSession) {
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		
@@ -79,6 +84,49 @@ public class HomeController {
 		data.put("list", list);
 		map.addAttribute("data", data);
 		
+		//세션데이터 가져오기
+		String userId = (String)httpSession.getAttribute("userId");
+		String userPassword = (String)httpSession.getAttribute("userPassword");
+		
+		System.out.println("세션에가져온데이터"+userId);
+		
+		if(userId == null) {
+			return "redirect:/login";
+		}
+		map.addAttribute("userId", userId);
+		map.addAttribute("userNo", 100);
 		return "board";
+	}
+	
+	@GetMapping("/")
+	public String loadMainPage() {
+		return "home";
+	}
+	
+	@GetMapping("/login")
+	public String loadLoginPage() {
+		return "login";
+	}
+	
+	@PostMapping("/login")
+	public @ResponseBody boolean callLogin(@RequestBody Map<String, Object> data, HttpSession httpSession) {
+		String userId = (String)data.get("userId");
+		String userPassword = (String)data.get("userPassword");
+		
+		System.out.println(userId);
+		System.out.println(userPassword);
+		
+		//세션에 데이터 set
+		httpSession.setAttribute("userId", userId);
+		httpSession.setAttribute("userPassword", userPassword);
+		
+		return true;
+	}
+	
+	@GetMapping("/logout")
+	public String goLoginPage(HttpSession httpSession) {
+		httpSession.removeAttribute("userId");
+		httpSession.removeAttribute("userPassword");
+		return "login";
 	}
 }
