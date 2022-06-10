@@ -53,8 +53,7 @@ tr:nth-child(even) {
 	 			<c:otherwise>
 	 				<tr>
 	 					<td style="text-align:center; font-size: 35px; color:red;" colspan=3>데이터가 없습니다</td>
-	 				</tr>
-	 				
+	 				</tr>			
 	 			</c:otherwise>
 	 		</c:choose>
 	 	</tbody>
